@@ -61,7 +61,7 @@ export async function onLoadMore() {
     renderMarkup(card.hits);
     smoothScroll();
     if (apiPixabay.totalPage === apiPixabay.page) {
-      onEndCollection();
+      onEndCollection(card.totalHits);
       refs.loadMoreBtn.classList.add('hidden');
     }
   } catch (err) {
@@ -78,8 +78,11 @@ function onResultNotify(total) {
   return Notify.success(`Hooray! We found ${total} images.`);
 }
 
-function onEndCollection() {
-  return Notify.success(
-    `"We're sorry, but you've reached the end of search results."`
-  );
+function onEndCollection(total) {
+  if (total === 11) {
+    return Notify.success(
+      `"We're sorry, but you've reached the end of search results."`
+    );
+  }
 }
+
